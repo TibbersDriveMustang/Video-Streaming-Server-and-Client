@@ -13,6 +13,9 @@ Then
 
 	Where 
 		# server_host : the name of the machine where server is running
+            Use command line
+                hostname
+            to get the hostname(IP address,human readable hostname may not work)
 		# server_port : port the server is listening on
 		# RTP_port : port where the RTP packets are received
 		# video_file : name of video file you want to request
