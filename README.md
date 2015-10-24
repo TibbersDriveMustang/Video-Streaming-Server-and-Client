@@ -21,10 +21,38 @@ Then
 		# video_file : name of video file you want to request
 	
 		@ file format
-			Lab`s proprietary MJPEG(Motion JPEG) format
+			Lab`s` proprietary MJPEG(Motion JPEG) format
 				# The server streams a video which has been encoded into a proprietary MJPEG file format
 				# This format stores the video as concatenated JPEG-encoded images
 				# Each image being preceded by a 5-Byte header which indicates the bit size of the image
 				# Server parses the bitstream of MJPEG file to extract the JPEG images
 				# Server sends the images to client at periodic intervals
-				# Client then displays the individual JPEG images sent from server			}
+				# Client then displays the individual JPEG images sent from server			
+        
+
+        @ Client 
+            
+                # Send RTSP commands to server by pressing buttons:
+                    > RTSP(Real Time Streaming Protocol) 
+                        * A network control protocol designed for use in entertainment and communications system to control streaming media servers
+                        * Used for establishing and controlling media sessions between end points
+                        * Clients issue VCR-style commands e.g play, pause .. to facilitate real-time control of playback of media files from server
+                # Most RTSP servers use the RTP(Real-time Transport Protocol) in conjunction with RTCP(Real-time Control Protocol) for media stream delivery.
+        
+                # Commands
+                    
+                    > SETUP
+                        * Send SETUP request to the server
+                        * Insert Transport header(specify port for RTP data socket you just created)
+                        * RTP : Real-time Transport Protocol
+                        * Read server`s` response
+                        * Parse Session header(from response) to get RTSP Session ID
+                        * Create a datagram socket for receiving RTP data
+                        * Set timeout on socket to 0.5 seconds
+                
+                    > PLAY
+                        * Send PLAY request
+                        * Insert Session header
+                        * Use the Session ID(returned in the SETUP response)
+                        * Not put the Transport header in the request
+                        * Read the Server`s` response
