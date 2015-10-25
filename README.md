@@ -56,3 +56,17 @@ Then
                         * Use the Session ID(returned in the SETUP response)
                         * Not put the Transport header in the request
                         * Read the Server`s` response
+
+                    > PAUSE 
+                        * Send PAUSE request
+                        * Insert the Session header
+                        * Use the Session ID returned in the SETUP response
+                        * Not put the Transport header in this request
+                        * Read the server`s` response
+
+                    > TEARDOWN
+                        * Send TEARDOWN request
+                        * Insert the Session header
+                        * Use the Session ID returned in the SETUP response
+                        * Not put the Transport header in this request
+                        * Read the server`s` response
