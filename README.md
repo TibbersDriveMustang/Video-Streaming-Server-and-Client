@@ -70,3 +70,6 @@ Then
                         * Use the Session ID returned in the SETUP response
                         * Not put the Transport header in this request
                         * Read the server`s` response
+
+                    *** Must insert CSeq header in every request you send
+                            Which starts at 1 and incremented by one for each request you send
