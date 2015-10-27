@@ -73,3 +73,10 @@ Then
 
                     *** Must insert CSeq header in every request you send
                             Which starts at 1 and incremented by one for each request you send
+
+What we need to implement
+    @ Client.py
+        SETUP function
+        PLAY function
+        PAUSE function
+        TEARDOWN function
