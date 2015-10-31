@@ -75,6 +75,7 @@ Then
                             Which starts at 1 and incremented by one for each request you send
 
 What we need to implement
+
     @ Client.py
         # SETUP function
         # PLAY function
@@ -88,6 +89,6 @@ What we need to implement
         # Set sequence number.(frameNbr argument)
         # Set timestamp (via Python time module)
         # Set source identifier(SSRC)(identifies the server,pick an ID you like)
-        # 
+        # We have no other contributing sources(field CC == 0), the CSRC-field does not exist. The packet header is 12 bytes
 
     

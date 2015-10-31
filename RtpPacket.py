@@ -18,6 +18,19 @@ class RtpPacket:
 		#--------------
 		# Fill the header bytearray with RTP header fields
 
+		version = 2 	#RTP-version filed(V), must set to 2
+		#padding(P),extension(X),number of contributing sources(CC) and marker(M) fields all set to zero in this lab
+		padding = 0
+		extension = 0
+		cc = 0
+		marker = 0
+		pt = 26
+		seqnum = frameNbr
+		SSRC = 0011
+
+		#Because we have no other contributing sources(field CC == 0),the CSRC-field does not exist
+		#Thus the length of the packet header is therefore 12 bytes
+
 		# header[0] = ...
 		# ...
 

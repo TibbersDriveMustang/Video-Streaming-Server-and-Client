@@ -153,6 +153,7 @@ class Client:
 			# Update RTSP sequence number.
 			# ...
 
+
 			# Write the RTSP request to be sent.
 			# request = ...
 
