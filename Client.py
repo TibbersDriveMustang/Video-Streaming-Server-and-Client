@@ -152,13 +152,17 @@ class Client:
 			threading.Thread(target=self.recvRtspReply).start()
 			# Update RTSP sequence number.
 			# ...
-
+			self.rtspSeq = 1
 
 			# Write the RTSP request to be sent.
 			# request = ...
+			request = "SETUP movie.Mjpeg RTSP/1.0 RTP/UDP client_port=25000"
+			#transport = "RTP/UDP;client_port=25000"
 
+			self.rtspSocket.send(request)
 			# Keep track of the sent request.
 			# self.requestSent = ...
+			self.requestSent = 1
 
 		# Play request
 #		elif requestCode == self.PLAY and self.state == self.READY:
