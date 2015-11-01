@@ -20,6 +20,8 @@ class Server:
 			clientInfo['rtspSocket'] = rtspSocket.accept()
 			ServerWorker(clientInfo).run()
 
+
+# Program Start Point
 if __name__ == "__main__":
 	(Server()).main()
 

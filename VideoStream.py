@@ -5,6 +5,7 @@ class VideoStream:
 		try:
 			self.file = open(filename, 'rb')
 		except:
+			print "read " + filename + " error"
 			raise IOError
 		self.frameNum = 0
 

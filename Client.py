@@ -156,7 +156,8 @@ class Client:
 
 			# Write the RTSP request to be sent.
 			# request = ...
-			request = "SETUP movie.Mjpeg RTSP/1.0 RTP/UDP client_port=25000"
+			request = "SETUP " + str(self.fileName) + " RTSP/1.0 RTP/UDP client_port=25000" + "\n" + str(self.rtspSeq)
+
 			#transport = "RTP/UDP;client_port=25000"
 
 			self.rtspSocket.send(request)

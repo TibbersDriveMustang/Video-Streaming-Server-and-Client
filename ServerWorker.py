@@ -57,11 +57,14 @@ class ServerWorker:
 				print "processing SETUP\n"
 
 				try:
+					print "No bug till here(1)"
 					self.clientInfo['videoStream'] = VideoStream(filename)
 					self.state = self.READY
+
 				except IOError:
 					self.replyRtsp(self.FILE_NOT_FOUND_404, seq[1])
 
+				print "No bug till here(2)"
 				# Generate a randomized RTSP session ID
 				self.clientInfo['session'] = randint(100000, 999999)
 
