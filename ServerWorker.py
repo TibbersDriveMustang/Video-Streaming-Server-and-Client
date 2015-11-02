@@ -69,11 +69,11 @@ class ServerWorker:
 				self.clientInfo['session'] = randint(100000, 999999)
 
 				# Send RTSP reply
-				self.replyRtsp(self.OK_200, seq[1])
-
+				self.replyRtsp(self.OK_200, seq[0])  #seq[0] the sequenceNum received from Client.py
+				print "sequenceNum is " + seq[0]
 				# Get the RTP/UDP port from the last line
 				self.clientInfo['rtpPort'] = request[2].split(' ')[3]
-
+				print "No bug till here(3)"
 		# Process PLAY request
 		elif requestType == self.PLAY:
 			if self.state == self.READY:
