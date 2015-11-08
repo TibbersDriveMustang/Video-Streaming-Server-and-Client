@@ -163,7 +163,7 @@ class Client:
 			self.rtspSocket.send(request)
 			# Keep track of the sent request.
 			# self.requestSent = ...
-			self.requestSent = 1
+			self.requestSent = self.SETUP
 
 		# Play request
 #		elif requestCode == self.PLAY and self.state == self.READY:
@@ -220,6 +220,8 @@ class Client:
 				break
 
 	def parseRtspReply(self, data):
+		print "Parsing Received data..."
+
 		"""Parse the RTSP reply from the server."""
 		lines = data.split('\n')
 		seqNum = int(lines[1].split(' ')[1])
@@ -239,18 +241,21 @@ class Client:
 						# TO COMPLETE
 						#-------------
 						# Update RTSP state.
+						print "Updating RTSP state..."
 						# self.state = ...
-
+						self.state = self.READY
 						# Open RTP port.
+						#self.openRtpPort()
 						self.openRtpPort()
-#					elif self.requestSent == self.PLAY:
+						print "Server Ready"
+				    #elif self.requestSent == self.PLAY:
 						# self.state = ...
-					elif self.requestSent == self.PAUSE:
+					#elif self.requestSent == self.PAUSE:
 						# self.state = ...
 
 						# The play thread exits. A new thread is created on resume.
-						self.playEvent.set()
-					elif self.requestSent == self.TEARDOWN:
+						#self.playEvent.set()
+					#elif self.requestSent == self.TEARDOWN:
 						# self.state = ...
 
 						# Flag the teardownAcked to close the socket.
@@ -263,15 +268,22 @@ class Client:
 		#-------------
 		# Create a new datagram socket to receive RTP packets from the server
 		# self.rtpSocket = ...
+		self.rtpSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 		# Set the timeout value of the socket to 0.5sec
 		# ...
-
+		self.rtpSocket.settimeout(0.5)
 #		try:
 			# Bind the socket to the address using the RTP port given by the client user
 			# ...
 #		except:
 #			tkMessageBox.showwarning('Unable to Bind', 'Unable to bind PORT=%d' %self.rtpPort)
+
+		try:
+			#self.rtpSocket.connect((self.serverAddr,self.rtpPort))
+			self.rtpSocket.bind('',self.rtpPort)
+		except:
+			tkMessageBox.showwarning('Connection Failed', 'Connection to rtpServer failed')
 
 	def handler(self):
 		"""Handler on explicitly closing the GUI window."""

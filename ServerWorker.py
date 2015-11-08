@@ -73,7 +73,7 @@ class ServerWorker:
 				print "sequenceNum is " + seq[0]
 				# Get the RTP/UDP port from the last line
 				self.clientInfo['rtpPort'] = request[2].split(' ')[3]
-				print "No bug till here(3)"
+				print "No bug till here(3) (might have data structure unmatch)"
 		# Process PLAY request
 		elif requestType == self.PLAY:
 			if self.state == self.READY:
