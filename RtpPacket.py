@@ -1,6 +1,7 @@
 __author__ = 'Tibbers'
 import sys
 from time import time
+from VideoStream import VideoStream
 HEADER_SIZE = 12
 
 class RtpPacket:
@@ -26,7 +27,7 @@ class RtpPacket:
 		cc = 0
 		marker = 0
 		pt = 26
-		seqnum = frameNbr
+		seqnum = VideoStream.frameNbr()
 		SSRC = 0011
 
 		#Because we have no other contributing sources(field CC == 0),the CSRC-field does not exist

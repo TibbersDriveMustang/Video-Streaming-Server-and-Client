@@ -166,15 +166,16 @@ class Client:
 			self.requestSent = self.SETUP
 
 		# Play request
-#		elif requestCode == self.PLAY and self.state == self.READY:
+		elif requestCode == self.PLAY and self.state == self.READY:
 			# Update RTSP sequence number.
 			# ...
-
+			self.rtspSeq = self.rtspSeq + 1
 			# Write the RTSP request to be sent.
 			# request = ...
-
+			request = "PLAY " + "\n" + str(self.rtspSeq)
 			# Keep track of the sent request.
 			# self.requestSent = ...
+			self.requestSent = self.PLAY
 
 		# Pause request
 #		elif requestCode == self.PAUSE and self.state == self.PLAYING:
@@ -247,7 +248,7 @@ class Client:
 						# Open RTP port.
 						#self.openRtpPort()
 						self.openRtpPort()
-						print "Server Ready"
+
 				    #elif self.requestSent == self.PLAY:
 						# self.state = ...
 					#elif self.requestSent == self.PAUSE:
@@ -259,7 +260,7 @@ class Client:
 						# self.state = ...
 
 						# Flag the teardownAcked to close the socket.
-						self.teardownAcked = 1
+						#self.teardownAcked = 1
 
 	def openRtpPort(self):
 		"""Open RTP socket binded to a specified port."""
@@ -268,11 +269,11 @@ class Client:
 		#-------------
 		# Create a new datagram socket to receive RTP packets from the server
 		# self.rtpSocket = ...
-		self.rtpSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+		rtpSocket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 
 		# Set the timeout value of the socket to 0.5sec
 		# ...
-		self.rtpSocket.settimeout(0.5)
+		rtpSocket.settimeout(0.5)
 #		try:
 			# Bind the socket to the address using the RTP port given by the client user
 			# ...
@@ -280,10 +281,13 @@ class Client:
 #			tkMessageBox.showwarning('Unable to Bind', 'Unable to bind PORT=%d' %self.rtpPort)
 
 		try:
-			#self.rtpSocket.connect((self.serverAddr,self.rtpPort))
-			self.rtpSocket.bind('',self.rtpPort)
+			#self.rtpSocket.connect(self.serverAddr,self.rtpPort)
+			rtpSocket.bind(('',self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
+			#self.rtpSocket.listen(5)
+
 		except:
-			tkMessageBox.showwarning('Connection Failed', 'Connection to rtpServer failed')
+			tkMessageBox.showwarning('Connection Failed', 'Connection to rtpServer failed...')
+
 
 	def handler(self):
 		"""Handler on explicitly closing the GUI window."""
