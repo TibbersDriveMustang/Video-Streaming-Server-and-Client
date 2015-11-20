@@ -34,7 +34,7 @@ class ServerWorker:
 		while True:
 			data = connSocket.recv(256)
 			if data:
-				print "Data received:\n" + data
+				print "Data received:\n" + data +"\n"
 				self.processRtspRequest(data)
 
 	def processRtspRequest(self, data):
@@ -54,17 +54,16 @@ class ServerWorker:
 		if requestType == self.SETUP:
 			if self.state == self.INIT:
 				# Update state
-				print "processing SETUP\n"
+				print "SETUP Request received\n"
 
 				try:
-					print "No bug till here(1)"
+
 					self.clientInfo['videoStream'] = VideoStream(filename)
 					self.state = self.READY
 
 				except IOError:
 					self.replyRtsp(self.FILE_NOT_FOUND_404, seq[1])
 
-				print "No bug till here(2)"
 				# Generate a randomized RTSP session ID
 				self.clientInfo['session'] = randint(100000, 999999)
 
@@ -77,13 +76,14 @@ class ServerWorker:
 		# Process PLAY request
 		elif requestType == self.PLAY:
 			if self.state == self.READY:
-				print "processing PLAY\n"
+				print "PLAY Request Received"
 				self.state = self.PLAYING
 
 				# Create a new socket for RTP/UDP
 				self.clientInfo["rtpSocket"] = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-				self.replyRtsp(self.OK_200, seq[1])
+				self.replyRtsp(self.OK_200, seq[0])
+				print "Replied to client"
 
 				# Create a new thread and start sending RTP packets
 				self.clientInfo['event'] = threading.Event()
