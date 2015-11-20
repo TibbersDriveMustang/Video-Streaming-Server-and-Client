@@ -173,6 +173,9 @@ class Client:
 			# Write the RTSP request to be sent.
 			# request = ...
 			request = "PLAY " + "\n" + str(self.rtspSeq)
+
+			self.rtspSocket.send(request)
+			print "PLAY request sent to Server"
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.PLAY
@@ -247,6 +250,7 @@ class Client:
 						self.state = self.READY
 						# Open RTP port.
 						#self.openRtpPort()
+						print "Settting Up RtpPort for Video Stream"
 						self.openRtpPort()
 
 				    #elif self.requestSent == self.PLAY:
