@@ -72,6 +72,7 @@ class ServerWorker:
 				print "sequenceNum is " + seq[0]
 				# Get the RTP/UDP port from the last line
 				self.clientInfo['rtpPort'] = request[2].split(' ')[3]
+				print "rtpPort is " + self.clientInfo['rtpPort']
 				print "No bug till here(3) (might have data structure unmatch)"
 		# Process PLAY request
 		elif requestType == self.PLAY:
@@ -124,9 +125,9 @@ class ServerWorker:
 			if data:
 				frameNumber = self.clientInfo['videoStream'].frameNbr()
 				try:
-					address = self.clientInfo['rtspSocket'][1][0]
-					port = int(self.clientInfo['rtpPort'])
-					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),(address,port))
+					#address = 127.0.0.1 #self.clientInfo['rtspSocket'][0][0]
+					port = '25000' #int(self.clientInfo['rtpPort'])
+					#self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),('127.0.0.1','25000'))
 				except:
 					print "Connection Error"
 					#print '-'*60

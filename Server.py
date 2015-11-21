@@ -18,6 +18,7 @@ class Server:
 		while True:
 			clientInfo = {}
 			clientInfo['rtspSocket'] = rtspSocket.accept()
+
 			ServerWorker(clientInfo).run()
 
 
