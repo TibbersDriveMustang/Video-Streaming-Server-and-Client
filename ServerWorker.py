@@ -126,13 +126,13 @@ class ServerWorker:
 				frameNumber = self.clientInfo['videoStream'].frameNbr()
 				try:
 					#address = 127.0.0.1 #self.clientInfo['rtspSocket'][0][0]
-					port = '25000' #int(self.clientInfo['rtpPort'])
-					#self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),('127.0.0.1','25000'))
+					#port = '25000' #int(self.clientInfo['rtpPort'])
+					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),('127.0.0.1',25000)) #self.makeRtp(data, frameNumber)
 				except:
 					print "Connection Error"
-					#print '-'*60
-					#traceback.print_exc(file=sys.stdout)
-					#print '-'*60
+					print '-'*60
+					traceback.print_exc(file=sys.stdout)
+					print '-'*60
 
 	def makeRtp(self, payload, frameNbr):
 		"""RTP-packetize the video data."""

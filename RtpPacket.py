@@ -1,7 +1,8 @@
 __author__ = 'Tibbers'
 import sys
 from time import time
-from VideoStream import VideoStream
+# from VideoStream import VideoStream
+import VideoStream
 HEADER_SIZE = 12
 
 class RtpPacket:
@@ -19,6 +20,7 @@ class RtpPacket:
 		# TO COMPLETE
 		#--------------
 		# Fill the header bytearray with RTP header fields
+		VideoS = VideoStream.VideoStream()
 
 		version = 2 	#RTP-version filed(V), must set to 2
 		#padding(P),extension(X),number of contributing sources(CC) and marker(M) fields all set to zero in this lab
@@ -27,7 +29,7 @@ class RtpPacket:
 		cc = 0
 		marker = 0
 		pt = 26
-		seqnum = VideoStream.frameNbr()
+		seqnum = VideoS.frameNbr()
 		SSRC = 0011
 
 		#Because we have no other contributing sources(field CC == 0),the CSRC-field does not exist
