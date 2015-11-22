@@ -73,6 +73,7 @@ class ServerWorker:
 				# Get the RTP/UDP port from the last line
 				self.clientInfo['rtpPort'] = request[2].split(' ')[3]
 				print "rtpPort is " + self.clientInfo['rtpPort']
+				print "filename is " + filename
 				print "No bug till here(3) (might have data structure unmatch)"
 		# Process PLAY request
 		elif requestType == self.PLAY:

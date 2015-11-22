@@ -2,6 +2,8 @@ __author__ = 'Tibbers'
 import sys
 from time import time
 # from VideoStream import VideoStream
+
+
 import VideoStream
 HEADER_SIZE = 12
 
@@ -22,25 +24,22 @@ class RtpPacket:
 		# Fill the header bytearray with RTP header fields
 		VideoS = VideoStream.VideoStream()
 
-		version = 2 	#RTP-version filed(V), must set to 2
+		#RTP-version filed(V), must set to 2
 		#padding(P),extension(X),number of contributing sources(CC) and marker(M) fields all set to zero in this lab
-		padding = 0
-		extension = 0
-		cc = 0
-		marker = 0
-		pt = 26
-		seqnum = VideoS.frameNbr()
-		SSRC = 0011
 
 		#Because we have no other contributing sources(field CC == 0),the CSRC-field does not exist
 		#Thus the length of the packet header is therefore 12 bytes
 
+
+			#Above all done in ServerWorker.py
+
 		# header[0] = ...
 		# ...
+		header[]
 
 		# Get the payload from the argument
 		# self.payload = ...
-
+		self.payload = 
 	def decode(self, byteStream):
 		"""Decode the RTP packet."""
 		self.header = bytearray(byteStream[:HEADER_SIZE])
