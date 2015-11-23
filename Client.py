@@ -91,11 +91,12 @@ class Client:
 			self.playEvent.clear()
 			self.sendRtspRequest(self.PLAY)
 
-	def listenRtp(self):
-		"""Listen for RTP packets."""
+	def listenRtp(self):     
+		print "Listening Rtp Packet..."
 		while True:
 			try:
 				data = self.rtpSocket.recv(20480)
+				print "Rtp data received..."
 				if data:
 					rtpPacket = RtpPacket()
 					rtpPacket.decode(data)
@@ -108,8 +109,8 @@ class Client:
 						self.updateMovie(self.writeFrame(rtpPacket.getPayload()))
 			except:
 				# Stop listening upon requesting PAUSE or TEARDOWN
-				if self.playEvent.isSet():
-					break
+				#if self.playEvent.isSet():
+				#	break
 
 				# Upon receiving ACK for TEARDOWN request,
 				# close the RTP socket
@@ -175,7 +176,7 @@ class Client:
 			request = "PLAY " + "\n" + str(self.rtspSeq)
 
 			self.rtspSocket.send(request)
-			print "PLAY request sent to Server"
+			print "PLAY request sent to Server..."
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.PLAY
@@ -224,7 +225,7 @@ class Client:
 				break
 
 	def parseRtspReply(self, data):
-		print "Parsing Received data..."
+		print "Parsing Received Rtsp data..."
 
 		"""Parse the RTSP reply from the server."""
 		lines = data.split('\n')
@@ -253,8 +254,9 @@ class Client:
 						print "Settting Up RtpPort for Video Stream"
 						self.openRtpPort()
 
-				    #elif self.requestSent == self.PLAY:
-						# self.state = ...
+					elif self.requestSent == self.PLAY:
+						 self.state = self.PLAYING
+						 print "PLAYING(Line 259)..."
 					#elif self.requestSent == self.PAUSE:
 						# self.state = ...
 
@@ -288,6 +290,7 @@ class Client:
 			#self.rtpSocket.connect(self.serverAddr,self.rtpPort)
 			rtpSocket.bind(('',self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
 			#self.rtpSocket.listen(5)
+			print "Bind RtpPort Success"
 
 		except:
 			tkMessageBox.showwarning('Connection Failed', 'Connection to rtpServer failed...')

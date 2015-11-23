@@ -22,7 +22,6 @@ class RtpPacket:
 		# TO COMPLETE
 		#--------------
 		# Fill the header bytearray with RTP header fields
-		#VideoS = VideoStream.VideoStream()
 
 		#RTP-version filed(V), must set to 2
 		#padding(P),extension(X),number of contributing sources(CC) and marker(M) fields all set to zero in this lab
@@ -35,14 +34,13 @@ class RtpPacket:
 
 		# ...
 		#header[] =
+
 		header[0] = version + padding + extension + cc + seqnum + marker + pt + ssrc
 		print "bytearray: " + header + "hehe"
 
-
-
 		# Get the payload from the argument
 		# self.payload = ...
-		#self.payload =
+		self.payload = payload
 	def decode(self, byteStream):
 		"""Decode the RTP packet."""
 		self.header = bytearray(byteStream[:HEADER_SIZE])

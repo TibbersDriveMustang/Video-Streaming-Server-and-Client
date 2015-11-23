@@ -34,7 +34,7 @@ class ServerWorker:
 		while True:
 			data = connSocket.recv(256)
 			if data:
-				print "Data received:\n" + data +"\n"
+				print '-'*60 + "\nData received:\n" + data +"\n" + '-'*60
 				self.processRtspRequest(data)
 
 	def processRtspRequest(self, data):
@@ -72,20 +72,20 @@ class ServerWorker:
 				print "sequenceNum is " + seq[0]
 				# Get the RTP/UDP port from the last line
 				self.clientInfo['rtpPort'] = request[2].split(' ')[3]
-				print "rtpPort is " + self.clientInfo['rtpPort']
+				print "rtpPort is (Port formate should be modified):" + self.clientInfo['rtpPort']
 				print "filename is " + filename
 				print "No bug till here(3) (might have data structure unmatch)"
 		# Process PLAY request
 		elif requestType == self.PLAY:
 			if self.state == self.READY:
-				print "PLAY Request Received"
+				print "PLAY Request Received\n"
 				self.state = self.PLAYING
 
 				# Create a new socket for RTP/UDP
 				self.clientInfo["rtpSocket"] = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 				self.replyRtsp(self.OK_200, seq[0])
-				print "Replied to client"
+				print seq[0] + "Replied to client"
 
 				# Create a new thread and start sending RTP packets
 				self.clientInfo['event'] = threading.Event()
@@ -128,7 +128,7 @@ class ServerWorker:
 				try:
 					#address = 127.0.0.1 #self.clientInfo['rtspSocket'][0][0]
 					#port = '25000' #int(self.clientInfo['rtpPort'])
-					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),('127.0.0.1',25000)) #self.makeRtp(data, frameNumber)
+					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),('127.0.0.1',25000))
 				except:
 					print "Connection Error"
 					print '-'*60
