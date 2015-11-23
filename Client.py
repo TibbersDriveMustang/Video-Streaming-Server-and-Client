@@ -97,12 +97,11 @@ class Client:
 		while True:
 			try:
 				print "Listening Rtp Packet..."
-				data = self.rtpSocket.recvfrom(20480)  #stuck here
+				data = self.rtpSocket.recvfrom(20480)  
 				print "Rtp data received..."
 				if data:
 					rtpPacket = RtpPacket()
-					rtpPacket.decode(data)
-
+					rtpPacket.decode(data)  # block here
 					currFrameNbr = rtpPacket.seqNum()
 					print "Current Seq Num: " + str(currFrameNbr)
 
