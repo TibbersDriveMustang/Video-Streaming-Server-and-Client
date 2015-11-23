@@ -35,6 +35,7 @@ class Client:
 		self.teardownAcked = 0
 		self.connectToServer()
 		self.frameNbr = 0
+		self.rtpSocket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 
 	def createWidgets(self):
 		"""Build GUI."""
@@ -110,8 +111,8 @@ class Client:
 						self.updateMovie(self.writeFrame(rtpPacket.getPayload()))
 			except:
 				# Stop listening upon requesting PAUSE or TEARDOWN
-				#if self.playEvent.isSet():
-				#	break
+				if self.playEvent.isSet():
+					break
 
 				# Upon receiving ACK for TEARDOWN request,
 				# close the RTP socket
@@ -276,11 +277,11 @@ class Client:
 		#-------------
 		# Create a new datagram socket to receive RTP packets from the server
 		# self.rtpSocket = ...
-		rtpSocket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
 
 		# Set the timeout value of the socket to 0.5sec
 		# ...
-		rtpSocket.settimeout(0.5)
+		self.rtpSocket.settimeout(0.5)
 #		try:
 			# Bind the socket to the address using the RTP port given by the client user
 			# ...
@@ -289,7 +290,7 @@ class Client:
 
 		try:
 			#self.rtpSocket.connect(self.serverAddr,self.rtpPort)
-			rtpSocket.bind(('',self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
+			self.rtpSocket.bind(('',self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
 			#self.rtpSocket.listen(5)
 			print "Bind RtpPort Success"
 
