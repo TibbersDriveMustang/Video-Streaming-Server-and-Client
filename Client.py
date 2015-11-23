@@ -111,6 +111,7 @@ class Client:
 						self.updateMovie(self.writeFrame(rtpPacket.getPayload()))
 			except:
 				# Stop listening upon requesting PAUSE or TEARDOWN
+				print "Didn`t receive data!"
 				if self.playEvent.isSet():
 					break
 
@@ -253,7 +254,7 @@ class Client:
 						self.state = self.READY
 						# Open RTP port.
 						#self.openRtpPort()
-						print "Settting Up RtpPort for Video Stream"
+						print "Setting Up RtpPort for Video Stream"
 						self.openRtpPort()
 
 					elif self.requestSent == self.PLAY:
