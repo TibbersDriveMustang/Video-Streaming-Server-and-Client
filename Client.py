@@ -86,15 +86,16 @@ class Client:
 		"""Play button handler."""
 		if self.state == self.READY:
 			# Create a new thread to listen for RTP packets
+			print "Playing Movie"
 			threading.Thread(target=self.listenRtp).start()
 			self.playEvent = threading.Event()
 			self.playEvent.clear()
 			self.sendRtspRequest(self.PLAY)
 
-	def listenRtp(self):     
-		print "Listening Rtp Packet..."
+	def listenRtp(self):
 		while True:
 			try:
+				print "Listening Rtp Packet..."
 				data = self.rtpSocket.recv(20480)
 				print "Rtp data received..."
 				if data:
