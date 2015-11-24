@@ -60,9 +60,7 @@ class RtpPacket:
 		# Get the payload from the argument
 		# self.payload = ...
 		self.payload = payload
-		print "header:"
-		print bin(header)
-		
+
 	def decode(self, byteStream):
 		"""Decode the RTP packet."""
 		print "blocking 3"
