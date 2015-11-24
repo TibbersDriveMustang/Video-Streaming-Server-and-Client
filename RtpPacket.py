@@ -56,14 +56,19 @@ class RtpPacket:
 		header[9] = ssrc >> 16
 		header[10] = ssrc >> 8
 		header[11] = ssrc
-		print "\n" + '-'*60 + "header encoding done...\n" + '-'*60
+		print '-'*60 + "\nheader encoding done...\n" + '-'*60
 		# Get the payload from the argument
 		# self.payload = ...
 		self.payload = payload
+		print "header:"
+		print bin(header)
+		
 	def decode(self, byteStream):
 		"""Decode the RTP packet."""
-		print "decoding bug..."
-		self.header = bytearray(byteStream[:HEADER_SIZE])
+		print "blocking 3"
+		#print byteStream[:HEADER_SIZE]
+		self.header = bytearray(byteStream[:HEADER_SIZE])   #stuck here!!!!!!!!!!!!!!!!!!
+		print "blocking 4"
 		self.payload = byteStream[HEADER_SIZE:]
 
 	def version(self):

@@ -101,9 +101,10 @@ class Client:
 				print "Rtp data received..."
 				if data:
 					rtpPacket = RtpPacket()
-					print "blocking"
 					rtpPacket.decode(data)  # block here
+					print "blocking1"
 					currFrameNbr = rtpPacket.seqNum()
+					print "blocking2"
 					print "Current Seq Num: " + str(currFrameNbr)
 
 					if currFrameNbr > self.frameNbr: # Discard the late packet
