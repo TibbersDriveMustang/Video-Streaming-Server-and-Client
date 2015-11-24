@@ -47,16 +47,16 @@ class RtpPacket:
 		header[2] = seqnum >> 8
 		header[3] = seqnum
 
-		header[4] = bytes(timestamp >> 24)
-		header[5] = bytes(timestamp >> 16)
-		header[6] = timestamp >> 8
-		header[7] = timestamp
+		header[4] = (timestamp >> 24) & 0xFF
+		header[5] = (timestamp >> 16) & 0xFF
+		header[6] = (timestamp >> 8) & 0xFF
+		header[7] = timestamp & 0xFF
 
 		header[8] = ssrc >> 24
 		header[9] = ssrc >> 16
 		header[10] = ssrc >> 8
 		header[11] = ssrc
-		print '-'*60 + "header endoing done...\n" + '-'*60
+		print "\n" + '-'*60 + "header encoding done...\n" + '-'*60
 		# Get the payload from the argument
 		# self.payload = ...
 		self.payload = payload
