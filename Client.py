@@ -97,10 +97,11 @@ class Client:
 		while True:
 			try:
 				print "Listening Rtp Packet..."
-				data = self.rtpSocket.recvfrom(20480)  
+				data = self.rtpSocket.recvfrom(20480)
 				print "Rtp data received..."
 				if data:
 					rtpPacket = RtpPacket()
+					print "blocking"
 					rtpPacket.decode(data)  # block here
 					currFrameNbr = rtpPacket.seqNum()
 					print "Current Seq Num: " + str(currFrameNbr)
@@ -290,7 +291,7 @@ class Client:
 
 		try:
 			#self.rtpSocket.connect(self.serverAddr,self.rtpPort)
-			self.rtpSocket.bind(("127.0.0.1",5005))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
+			self.rtpSocket.bind(("127.0.0.1",8006))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
 			#self.rtpSocket.listen(5)
 			print "Bind RtpPort Success"
 

@@ -17,6 +17,7 @@ class RtpPacket:
 		"""Encode the RTP packet with header fields and payload."""
 
 		timestamp = int(time())
+		print timestamp
 		header = bytearray(HEADER_SIZE)
 		#--------------
 		# TO COMPLETE
@@ -35,14 +36,33 @@ class RtpPacket:
 		# ...
 		#header[] =
 
-		header[0] = version + padding + extension + cc + seqnum + marker + pt + ssrc
-		print "bytearray: " + header + "hehe"
+		#header[0] = version + padding + extension + cc + seqnum + marker + pt + ssrc
+		header[0] = version << 6
+		header[0] = header[0] | padding << 5
+		header[0] = header[0] | extension << 4
+		header[0] = header[0] | cc
+		header[1] = marker << 7
+		header[1] = header[1] | pt
 
+		header[2] = seqnum >> 8
+		header[3] = seqnum
+
+		header[4] = bytes(timestamp >> 24)
+		header[5] = bytes(timestamp >> 16)
+		header[6] = timestamp >> 8
+		header[7] = timestamp
+
+		header[8] = ssrc >> 24
+		header[9] = ssrc >> 16
+		header[10] = ssrc >> 8
+		header[11] = ssrc
+		print '-'*60 + "header endoing done...\n" + '-'*60
 		# Get the payload from the argument
 		# self.payload = ...
 		self.payload = payload
 	def decode(self, byteStream):
 		"""Decode the RTP packet."""
+		print "decoding bug..."
 		self.header = bytearray(byteStream[:HEADER_SIZE])
 		self.payload = byteStream[HEADER_SIZE:]
 
@@ -52,7 +72,7 @@ class RtpPacket:
 
 	def seqNum(self):
 		"""Return sequence (frame) number."""
-		seqNum = self.header[2] << 8 | self.header[3]
+		seqNum = self.header[2] << 8 | self.header[3]  #header[2] shift left for 8 bits then does bit or with header[3]
 		return int(seqNum)
 
 	def timestamp(self):

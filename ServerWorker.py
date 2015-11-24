@@ -129,7 +129,7 @@ class ServerWorker:
 					#address = 127.0.0.1 #self.clientInfo['rtspSocket'][0][0]
 					#port = '25000' #int(self.clientInfo['rtpPort'])
 
-					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",5005))
+					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",8006))
 				except:
 					print "Connection Error"
 					print '-'*60
