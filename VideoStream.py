@@ -16,19 +16,39 @@ class VideoStream:
 
 		data = self.file.read(5) # Get the framelength from the first 5 bytes
 		#data_ints = struct.unpack('<' + 'B'*len(data),data)
-		data_int = int(data.encode('hex'),16)
+		data = bytearray(data)
+		for byte in data:
+			print byte
+		data_int = (data[0] - 48) * 10000 + (data[1] - 48) * 1000 + (data[2] - 48) * 100 + (data[3] - 48) * 10 + (data[4] - 48)# = #int(data.encode('hex'),16)
 
-		final_data_int = int(data_int)
-		print final_data_int/8
+		print data_int
 
-		if data_int:
+		final_data_int = data_int
+		#print final_data_int/8
 
-			framelength = final_data_int/8  # xx bytes
+		if data:
+
+			framelength = final_data_int#int(data)#final_data_int/8  # xx bytes
 			# Read the current frame
-			data = self.file.read(framelength)
+			frame = self.file.read(framelength)
+			if len(frame) != framelength:
+				raise ValueError('incomplete frame data')
+			print "frame length"
+			print len(frame)
+			#if not (data.startswith(b'\xff\xd8') and data.endswith(b'\xff\xd9')):
+			#	raise ValueError('invalid jpeg')
+
 			self.frameNum += 1
 			print '-'*60 + "\nNext Frame (#" + str(self.frameNum) + ") length:" + str(framelength) + "\n" + '-'*60
-		return data
+
+			return frame
+
+
+
+
+
+
+
 
 	def frameNbr(self):
 		"""Get frame number."""
