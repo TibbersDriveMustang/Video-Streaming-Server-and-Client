@@ -97,13 +97,23 @@ class Client:
 		while True:
 			try:
 				print "Listening Rtp Packet..."
-				data = self.rtpSocket.recvfrom(20480)
+				data,addr = self.rtpSocket.recvfrom(1024)
 				print "Rtp data received..."
+				print data
 				if data:
 					rtpPacket = RtpPacket()
 					rtpPacket.decode(data)  # temporary solved
 					print "blocking 1"
-					currFrameNbr = rtpPacket.seqNum() #stuck here
+
+					try:
+						currFrameNbr = rtpPacket.seqNum() #stuck here
+						#version = rtpPacket.version()
+					except:
+						print "seqNum() error"
+						print '-'*60
+						traceback.print_exc(file=sys.stdout)
+						print '-'*60
+
 					print "blocking 2"
 					print "Current Seq Num: " + str(currFrameNbr)
 
