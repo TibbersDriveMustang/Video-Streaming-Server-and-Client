@@ -102,11 +102,11 @@ class Client:
 				print data
 				if data:
 					rtpPacket = RtpPacket()
-					rtpPacket.decode(data)  # temporary solved
+					rtpPacket.decode(data)  
 					print "blocking 1"
 
 					try:
-						currFrameNbr = rtpPacket.seqNum() #stuck here
+						currFrameNbr = rtpPacket.seqNum()
 						#version = rtpPacket.version()
 					except:
 						print "seqNum() error"
@@ -114,12 +114,13 @@ class Client:
 						traceback.print_exc(file=sys.stdout)
 						print '-'*60
 
-					print "blocking 2"
 					print "Current Seq Num: " + str(currFrameNbr)
 
 					if currFrameNbr > self.frameNbr: # Discard the late packet
 						self.frameNbr = currFrameNbr
-						self.updateMovie(self.writeFrame(rtpPacket.getPayload()))
+
+						self.updateMovie(self.writeFrame(rtpPacket.getPayload()))  # stuck there!!!!!!!!!!
+
 			except:
 				# Stop listening upon requesting PAUSE or TEARDOWN
 				print "Didn`t receive data!"
