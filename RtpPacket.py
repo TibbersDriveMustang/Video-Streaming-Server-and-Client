@@ -60,14 +60,17 @@ class RtpPacket:
 		# Get the payload from the argument
 		# self.payload = ...
 		self.payload = payload
+		print self.header + self.payload
 
 	def decode(self, byteStream):
 		"""Decode the RTP packet."""
 		print "blocking 3"
 		#print byteStream[:HEADER_SIZE]
 		self.header = byteStream   #temporary solved
+		print self.header
 		print "blocking 4"
 		self.payload = byteStream[HEADER_SIZE:]		#stuck here $$$$$
+		print self.payload
 		print "blocking 5"
 
 	def version(self):
@@ -76,7 +79,9 @@ class RtpPacket:
 
 	def seqNum(self):
 		"""Return sequence (frame) number."""
+		print "Entered seqNum() function"
 		seqNum = self.header[2] << 8 | self.header[3]  #header[2] shift left for 8 bits then does bit or with header[3]
+		print "blocking 6"
 		return int(seqNum)
 
 	def timestamp(self):
