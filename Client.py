@@ -102,8 +102,8 @@ class Client:
 				print data
 				if data:
 					rtpPacket = RtpPacket()
-					rtpPacket.decode(data)  
-					print "blocking 1"
+					rtpPacket.decode(data)
+
 
 					try:
 						currFrameNbr = rtpPacket.seqNum()
@@ -136,18 +136,27 @@ class Client:
 
 	def writeFrame(self, data):
 		"""Write the received frame to a temp image file. Return the image file."""
+
 		cachename = CACHE_FILE_NAME + str(self.sessionId) + CACHE_FILE_EXT
+
 		file = open(cachename, "wb")
+
 		file.write(data)
+
 		file.close()
+
 
 		return cachename
 
 	def updateMovie(self, imageFile):
 		"""Update the image file as video frame in the GUI."""
-		photo = ImageTk.PhotoImage(Image.open(imageFile))
+		print "blocking 1"
+		photo = ImageTk.PhotoImage(Image.open(imageFile)) #stuck here !!!!!!
+		print "blocking 2"
 		self.label.configure(image = photo, height=288)
+		print "blocking 3"
 		self.label.image = photo
+		print "blocking 4"
 
 	def connectToServer(self):
 		"""Connect to the Server. Start a new RTSP/TCP session."""

@@ -65,13 +65,13 @@ class RtpPacket:
 
 	def decode(self, byteStream):
 		"""Decode the RTP packet."""
-		print "blocking 3"
+
 		#print byteStream[:HEADER_SIZE]
 		self.header = bytearray(byteStream[:HEADER_SIZE])   #temporary solved
-		print "blocking 4"
+
 		self.payload = byteStream[HEADER_SIZE:]		#stuck here $$$$$
 
-		print "blocking 5"
+
 
 	def version(self):
 		"""Return RTP version."""
