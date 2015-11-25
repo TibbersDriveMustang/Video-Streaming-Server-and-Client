@@ -101,9 +101,9 @@ class Client:
 				print "Rtp data received..."
 				if data:
 					rtpPacket = RtpPacket()
-					rtpPacket.decode(data)  # block here
+					rtpPacket.decode(data)  # temporary solved
 					print "blocking1"
-					currFrameNbr = rtpPacket.seqNum()
+					currFrameNbr = rtpPacket.seqNum() #stuck here
 					print "blocking2"
 					print "Current Seq Num: " + str(currFrameNbr)
 
