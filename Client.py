@@ -97,7 +97,7 @@ class Client:
 		while True:
 			try:
 				print "Listening Rtp Packet..."
-				data,addr = self.rtpSocket.recvfrom(1024)
+				data,addr = self.rtpSocket.recvfrom(2048)
 				print "Rtp data received..."
 				print data
 				if data:
@@ -139,10 +139,15 @@ class Client:
 
 		cachename = CACHE_FILE_NAME + str(self.sessionId) + CACHE_FILE_EXT
 
-		file = open(cachename, "wb")
+		try:
+			file = open(cachename, "wb")
+		except:
+			print "file open error"
 
-		file.write(data)
-
+		try:
+			file.write(data)
+		except:
+			print "file write error"
 		file.close()
 
 
@@ -151,7 +156,14 @@ class Client:
 	def updateMovie(self, imageFile):
 		"""Update the image file as video frame in the GUI."""
 		print "blocking 1"
-		photo = ImageTk.PhotoImage(Image.open(imageFile)) #stuck here !!!!!!
+		try:
+			photo = ImageTk.PhotoImage(Image.open(imageFile)) #stuck here !!!!!!
+		except:
+			print "photo error"
+			print '-'*60
+			traceback.print_exc(file=sys.stdout)
+			print '-'*60
+
 		print "blocking 2"
 		self.label.configure(image = photo, height=288)
 		print "blocking 3"

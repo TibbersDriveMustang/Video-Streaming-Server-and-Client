@@ -123,15 +123,15 @@ class ServerWorker:
 				break
 
 			data = self.clientInfo['videoStream'].nextFrame()
-			print "data from nextFrame():" + data
+			print '-'*60 + "\ndata from nextFrame():\n" + data + "\n"
 			if data:
 				frameNumber = self.clientInfo['videoStream'].frameNbr()
 				try:
 					#address = 127.0.0.1 #self.clientInfo['rtspSocket'][0][0]
 					#port = '25000' #int(self.clientInfo['rtpPort'])
 
-					print "makeRtp:" + self.makeRtp(data,frameNumber)
-					print "-=-=-=-=-=-=-=-="
+					print '-'*60 + "\nmakeRtp:\n" + self.makeRtp(data,frameNumber)
+					print '-'*60
 					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",8006))
 
 				except:
