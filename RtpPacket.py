@@ -67,7 +67,7 @@ class RtpPacket:
 		"""Decode the RTP packet."""
 		print "blocking 3"
 		#print byteStream[:HEADER_SIZE]
-		self.header = byteStream   #temporary solved
+		self.header = bytearray(byteStream[:HEADER_SIZE])   #temporary solved
 		print "blocking 4"
 		self.payload = byteStream[HEADER_SIZE:]		#stuck here $$$$$
 
@@ -79,10 +79,7 @@ class RtpPacket:
 
 	def seqNum(self):
 		"""Return sequence (frame) number."""
-		print "Entered seqNum() function"
-		print self.header
 		seqNum = self.header[2] << 8 | self.header[3]  #header[2] shift left for 8 bits then does bit or with header[3]
-		print "blocking 6"
 		return int(seqNum)
 
 	def timestamp(self):
