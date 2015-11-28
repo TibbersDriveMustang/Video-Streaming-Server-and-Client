@@ -212,21 +212,24 @@ class Client:
 			request = "PLAY " + "\n" + str(self.rtspSeq)
 
 			self.rtspSocket.send(request)
-			print "PLAY request sent to Server..."
+			print '-'*60 + "\nPLAY request sent to Server...\n" + '-'*60
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.PLAY
 
 		# Pause request
-#		elif requestCode == self.PAUSE and self.state == self.PLAYING:
+		elif requestCode == self.PAUSE and self.state == self.PLAYING:
 			# Update RTSP sequence number.
 			# ...
-
+			self.rtspSeq = self.rtspSeq + 1
 			# Write the RTSP request to be sent.
 			# request = ...
-
+			request = "PAUSE " + "\n" + str(self.rtspSeq)
+			self.rtspSocket.send(request)
+			print '-'*60 + "\nPAUSE request sent to Server...\n" + '-'*60
 			# Keep track of the sent request.
 			# self.requestSent = ...
+			self.requestSent = self.PAUSE
 
 		# Teardown request
 #		elif requestCode == self.TEARDOWN and not self.state == self.INIT:
