@@ -1,6 +1,7 @@
 How to:
 
-Example
+Example:
+
     Open a terminal:
         python Server.py 1025
 
