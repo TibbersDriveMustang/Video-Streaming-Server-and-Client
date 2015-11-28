@@ -97,7 +97,7 @@ class Client:
 		while True:
 			try:
 				print "Listening Rtp Packet..."
-				data,addr = self.rtpSocket.recvfrom(2048)
+				data,addr = self.rtpSocket.recvfrom(20480)
 				print "Rtp data received..."
 				print data
 				if data:
