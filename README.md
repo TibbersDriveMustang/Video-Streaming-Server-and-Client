@@ -1,7 +1,7 @@
 How to:
 
 Example
-    Open a terminal :
+    Open a terminal:
         python Server.py 1025
 
     Open another terminal:
