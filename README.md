@@ -1,25 +1,54 @@
+How to:
+
+Example
+    Open a terminal :
+        python Server.py 1025
+
+    Open another terminal:
+        python ClientLauncher.py 127.0.0.1 1025 5008 video.mjpeg
+
+
+
+
+
 Start the server with the command line
 	
 		python Server.py server_port
 	
 	Where server_port is the port your server listens to for incoming RTSP connections
+	    # 1025
 		# Standard RTSP port is 554 
 		# But need to choose a #port > 1024
-	
-Then 
+
+Open a new terminal
+
 	Start the client with the command line
 		
 		python ClientLauncher.py server_host server_port RTP_port video_file
 
 	Where 
-		# server_host : the name of the machine where server is running
+		# server_host : the name of the machine where server is running (here "127.0.0.1")
             Use command line
                 hostname
             to get the hostname(IP address,human readable hostname may not work)
-		# server_port : port the server is listening on
-		# RTP_port : port where the RTP packets are received
-		# video_file : name of video file you want to request
+		# server_port : port the server is listening on (here "1025")
+		# RTP_port : port where the RTP packets are received (here "5008")
+		# video_file : name of video file you want to request,here "video.mjpeg"
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		@ file format
 			Lab`s` proprietary MJPEG(Motion JPEG) format
 				# The server streams a video which has been encoded into a proprietary MJPEG file format
