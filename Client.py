@@ -232,15 +232,19 @@ class Client:
 			self.requestSent = self.PAUSE
 
 		# Teardown request
-#		elif requestCode == self.TEARDOWN and not self.state == self.INIT:
+		elif requestCode == self.TEARDOWN and not self.state == self.INIT:
 			# Update RTSP sequence number.
 			# ...
-
+			self.rtspSeq = self.rtspSeq + 1
 			# Write the RTSP request to be sent.
 			# request = ...
-
+			request = "TEARDOWN " + "\n" + str(self.rtspSeq)
+			self.rtspSocket.send(request)
+			print '-'*60 + "\nTEARDOWN request sent to Server...\n" + '-'*60
 			# Keep track of the sent request.
 			# self.requestSent = ...
+			self.requestSent = self.TEARDOWN
+
 		else:
 			return
 
@@ -295,17 +299,18 @@ class Client:
 
 					elif self.requestSent == self.PLAY:
 						 self.state = self.PLAYING
-						 print "PLAYING(Line 259)..."
-					#elif self.requestSent == self.PAUSE:
-						# self.state = ...
+						 print '-'*60 + "\nClient is PLAYING...\n" + '-'*60
+					elif self.requestSent == self.PAUSE:
+						 self.state = self.PAUSE
 
 						# The play thread exits. A new thread is created on resume.
-						#self.playEvent.set()
-					#elif self.requestSent == self.TEARDOWN:
+						 self.playEvent.set()
+
+					elif self.requestSent == self.TEARDOWN:
 						# self.state = ...
 
 						# Flag the teardownAcked to close the socket.
-						#self.teardownAcked = 1
+						self.teardownAcked = 1
 
 	def openRtpPort(self):
 		"""Open RTP socket binded to a specified port."""
