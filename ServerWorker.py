@@ -34,7 +34,7 @@ class ServerWorker:
 		while True:
 			data = connSocket.recv(256)
 			if data:
-				print '-'*60 + "\nData received:\n" + data +"\n" + '-'*60
+				print '-'*60 + "\nData received:\n" + '-'*60
 				self.processRtspRequest(data)
 
 	def processRtspRequest(self, data):
@@ -78,14 +78,14 @@ class ServerWorker:
 		# Process PLAY request
 		elif requestType == self.PLAY:
 			if self.state == self.READY:
-				print "PLAY Request Received\n"
+				print '-'*60 + "PLAY Request Received\n" + '-'*60
 				self.state = self.PLAYING
 
 				# Create a new socket for RTP/UDP
 				self.clientInfo["rtpSocket"] = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 				self.replyRtsp(self.OK_200, seq[0])
-				print seq[0] + "Replied to client"
+				print '-'*60 + "\n"+ seq[0] + "Replied to client\n" + '-'*60
 
 				# Create a new thread and start sending RTP packets
 				self.clientInfo['event'] = threading.Event()
@@ -95,20 +95,20 @@ class ServerWorker:
 		# Process PAUSE request
 		elif requestType == self.PAUSE:
 			if self.state == self.PLAYING:
-				print "processing PAUSE\n"
+				print '-'*60 + "\nPAUSE Request Received\n" + '-'*60
 				self.state = self.READY
 
 				self.clientInfo['event'].set()
 
-				self.replyRtsp(self.OK_200, seq[1])
+				self.replyRtsp(self.OK_200, seq[0])
 
 		# Process TEARDOWN request
 		elif requestType == self.TEARDOWN:
-			print "processing TEARDOWN\n"
+			print '-'*60 + "\nTEARDOWN Request Received\n" + '-'*60
 
 			self.clientInfo['event'].set()
 
-			self.replyRtsp(self.OK_200, seq[1])
+			self.replyRtsp(self.OK_200, seq[0])
 
 			# Close the RTP socket
 			self.clientInfo['rtpSocket'].close()
@@ -123,15 +123,15 @@ class ServerWorker:
 				break
 
 			data = self.clientInfo['videoStream'].nextFrame()
-			print '-'*60 + "\ndata from nextFrame():\n" + data + "\n"
+			#print '-'*60 + "\ndata from nextFrame():\n" + data + "\n"
 			if data:
 				frameNumber = self.clientInfo['videoStream'].frameNbr()
 				try:
 					#address = 127.0.0.1 #self.clientInfo['rtspSocket'][0][0]
 					#port = '25000' #int(self.clientInfo['rtpPort'])
 
-					print '-'*60 + "\nmakeRtp:\n" + self.makeRtp(data,frameNumber)
-					print '-'*60
+					#print '-'*60 + "\nmakeRtp:\n" + self.makeRtp(data,frameNumber)
+					#print '-'*60
 					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",8006))
 
 				except:

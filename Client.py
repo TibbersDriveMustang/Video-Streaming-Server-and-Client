@@ -99,7 +99,7 @@ class Client:
 				print "Listening Rtp Packet..."
 				data,addr = self.rtpSocket.recvfrom(20480)
 				print "Rtp data received..."
-				print data
+
 				if data:
 					rtpPacket = RtpPacket()
 					rtpPacket.decode(data)
@@ -155,7 +155,6 @@ class Client:
 
 	def updateMovie(self, imageFile):
 		"""Update the image file as video frame in the GUI."""
-		print "blocking 1"
 		try:
 			photo = ImageTk.PhotoImage(Image.open(imageFile)) #stuck here !!!!!!
 		except:
@@ -164,11 +163,8 @@ class Client:
 			traceback.print_exc(file=sys.stdout)
 			print '-'*60
 
-		print "blocking 2"
 		self.label.configure(image = photo, height=288)
-		print "blocking 3"
 		self.label.image = photo
-		print "blocking 4"
 
 	def connectToServer(self):
 		"""Connect to the Server. Start a new RTSP/TCP session."""
@@ -230,6 +226,15 @@ class Client:
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.PAUSE
+
+		# Resume request
+		elif requestCode == self.PLAY and self.state == self.PAUSE:
+
+			self.rtspSeq = self.rtspSeq +1
+			request = "PLAY " + "\n" + str(self.rtspSeq)
+			self.rtspSocket.send(request)
+			print '-'*60 + "\nRESUME request sent to Server...\n" + '-'*60
+			self.requestSent = self.PLAY
 
 		# Teardown request
 		elif requestCode == self.TEARDOWN and not self.state == self.INIT:
