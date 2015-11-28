@@ -74,23 +74,27 @@ class ServerWorker:
 				self.clientInfo['rtpPort'] = request[2].split(' ')[3]
 				print "rtpPort is (Port formate should be modified):" + self.clientInfo['rtpPort']
 				print "filename is " + filename
-				print "No bug till here(3) (might have data structure unmatch)"
+
 		# Process PLAY request
 		elif requestType == self.PLAY:
 			if self.state == self.READY:
-				print '-'*60 + "PLAY Request Received\n" + '-'*60
+				print '-'*60 + "\nPLAY Request Received\n" + '-'*60
 				self.state = self.PLAYING
 
 				# Create a new socket for RTP/UDP
 				self.clientInfo["rtpSocket"] = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 				self.replyRtsp(self.OK_200, seq[0])
-				print '-'*60 + "\n"+ seq[0] + "Replied to client\n" + '-'*60
+				print '-'*60 + "\nSequence Number ("+ seq[0] + ")\nReplied to client\n" + '-'*60
 
 				# Create a new thread and start sending RTP packets
 				self.clientInfo['event'] = threading.Event()
 				self.clientInfo['worker']= threading.Thread(target=self.sendRtp)
 				self.clientInfo['worker'].start()
+		# Process RESUME request
+			elif self.state == self.PAUSE:
+				print '-'*60 + "\nRESUME Request Received\n" + '-'*60
+				self.state = self.PLAYING
 
 		# Process PAUSE request
 		elif requestType == self.PAUSE:

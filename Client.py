@@ -228,13 +228,7 @@ class Client:
 			self.requestSent = self.PAUSE
 
 		# Resume request
-		elif requestCode == self.PLAY and self.state == self.PAUSE:
 
-			self.rtspSeq = self.rtspSeq +1
-			request = "PLAY " + "\n" + str(self.rtspSeq)
-			self.rtspSocket.send(request)
-			print '-'*60 + "\nRESUME request sent to Server...\n" + '-'*60
-			self.requestSent = self.PLAY
 
 		# Teardown request
 		elif requestCode == self.TEARDOWN and not self.state == self.INIT:
@@ -306,7 +300,7 @@ class Client:
 						 self.state = self.PLAYING
 						 print '-'*60 + "\nClient is PLAYING...\n" + '-'*60
 					elif self.requestSent == self.PAUSE:
-						 self.state = self.PAUSE
+						 self.state = self.READY
 
 						# The play thread exits. A new thread is created on resume.
 						 self.playEvent.set()
