@@ -21,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Client.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Client.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="191" column="107" selection-start-line="191" selection-start-column="107" selection-end-line="191" selection-end-column="107" />
+            <state vertical-scroll-proportion="-0.3415133">
+              <caret line="121" column="82" selection-start-line="121" selection-start-column="82" selection-end-line="121" selection-end-column="82" />
               <folding>
                 <element signature="e#23#44#0" expanded="true" />
               </folding>
@@ -57,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerWorker.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServerWorker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ServerWorker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.76687115">
-              <caret line="149" column="54" selection-start-line="149" selection-start-column="54" selection-end-line="149" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="155" column="39" selection-start-line="155" selection-start-column="39" selection-end-line="155" selection-end-column="39" />
               <folding>
                 <element signature="e#24#43#0" expanded="true" />
               </folding>
@@ -836,26 +836,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ClientLauncher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="e#23#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/VideoStream.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -872,22 +852,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client.py">
+    <entry file="file://$PROJECT_DIR$/Server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="191" column="107" selection-start-line="191" selection-start-column="107" selection-end-line="191" selection-end-column="107" />
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
-            <element signature="e#23#44#0" expanded="true" />
+            <element signature="e#23#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ServerWorker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76687115">
-          <caret line="149" column="54" selection-start-line="149" selection-start-column="54" selection-end-line="149" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="155" column="39" selection-start-line="155" selection-start-column="39" selection-end-line="155" selection-end-column="39" />
           <folding>
             <element signature="e#24#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ClientLauncher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.3415133">
+          <caret line="121" column="82" selection-start-line="121" selection-start-column="82" selection-end-line="121" selection-end-column="82" />
+          <folding>
+            <element signature="e#23#44#0" expanded="true" />
           </folding>
         </state>
       </provider>

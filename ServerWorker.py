@@ -75,7 +75,7 @@ class ServerWorker:
 				print "sequenceNum is " + seq[0]
 				# Get the RTP/UDP port from the last line
 				self.clientInfo['rtpPort'] = request[2].split(' ')[3]
-				print "rtpPort is (Port formate should be modified):" + self.clientInfo['rtpPort']
+				print '-'*60 + "\nrtpPort is :" + self.clientInfo['rtpPort'] + "\n" + '-'*60
 				print "filename is " + filename
 
 		# Process PLAY request
@@ -152,7 +152,7 @@ class ServerWorker:
 
 					prb = math.floor(random.uniform(1,100))
 					if prb > 5.0:
-						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",8006))
+						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",port))
 						time.sleep(jit)
 				except:
 					print "Connection Error"

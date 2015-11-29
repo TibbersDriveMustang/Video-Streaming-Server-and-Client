@@ -119,7 +119,7 @@ class Client:
 					if currFrameNbr > self.frameNbr: # Discard the late packet
 						self.frameNbr = currFrameNbr
 
-						self.updateMovie(self.writeFrame(rtpPacket.getPayload()))  # stuck there!!!!!!!!!!
+						self.updateMovie(self.writeFrame(rtpPacket.getPayload())) 
 
 			except:
 				# Stop listening upon requesting PAUSE or TEARDOWN
@@ -189,7 +189,7 @@ class Client:
 
 			# Write the RTSP request to be sent.
 			# request = ...
-			request = "SETUP " + str(self.fileName) + "\n" + str(self.rtspSeq) + "\n" + " RTSP/1.0 RTP/UDP 25000"
+			request = "SETUP " + str(self.fileName) + "\n" + str(self.rtspSeq) + "\n" + " RTSP/1.0 RTP/UDP 8006"
 
 			#transport = "RTP/UDP;client_port=25000"
 
