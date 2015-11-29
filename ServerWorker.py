@@ -1,4 +1,7 @@
 __author__ = 'Tibbers'
+
+import random, math
+import time
 from random import randint
 import sys, traceback, threading, socket
 
@@ -119,8 +122,15 @@ class ServerWorker:
 
 	def sendRtp(self):
 		"""Send RTP packets over UDP."""
+
+		# counter = 0
+		# threshold = 10
 		while True:
+			jit = math.floor(random.uniform(-13,5.99))
+			jit = jit / 1000
+
 			self.clientInfo['event'].wait(0.05)
+			jit = jit + 0.020
 
 			# Stop sending if request is PAUSE or TEARDOWN
 			if self.clientInfo['event'].isSet():
@@ -136,8 +146,14 @@ class ServerWorker:
 
 					#print '-'*60 + "\nmakeRtp:\n" + self.makeRtp(data,frameNumber)
 					#print '-'*60
-					self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",8006))
 
+					address = self.clientInfo['rtspSocket'][1][0]
+					port = int(self.clientInfo['rtpPort'])
+
+					prb = math.floor(random.uniform(1,100))
+					if prb > 5.0:
+						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",8006))
+						time.sleep(jit)
 				except:
 					print "Connection Error"
 					print '-'*60
