@@ -148,12 +148,13 @@ class ServerWorker:
 					#print '-'*60 + "\nmakeRtp:\n" + self.makeRtp(data,frameNumber)
 					#print '-'*60
 
-					address = self.clientInfo['rtspSocket'][1]
+					#address = self.clientInfo['rtspSocket'][1]   #!!!! this is a tuple object ("address" , "")
+
 					port = int(self.clientInfo['rtpPort'])
 
 					prb = math.floor(random.uniform(1,100))
 					if prb > 5.0:
-						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),(str(address),port))
+						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),(self.clientInfo['rtspSocket'][1][0],port))
 						time.sleep(jit)
 				except:
 					print "Connection Error"
