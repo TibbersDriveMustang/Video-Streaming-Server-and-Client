@@ -118,8 +118,7 @@ class Client:
 
 					if currFrameNbr > self.frameNbr: # Discard the late packet
 						self.frameNbr = currFrameNbr
-
-						self.updateMovie(self.writeFrame(rtpPacket.getPayload())) 
+						self.updateMovie(self.writeFrame(rtpPacket.getPayload()))
 
 			except:
 				# Stop listening upon requesting PAUSE or TEARDOWN
@@ -148,8 +147,8 @@ class Client:
 			file.write(data)
 		except:
 			print "file write error"
-		file.close()
 
+		file.close()
 
 		return cachename
 
@@ -189,9 +188,9 @@ class Client:
 
 			# Write the RTSP request to be sent.
 			# request = ...
-			request = "SETUP " + str(self.fileName) + "\n" + str(self.rtspSeq) + "\n" + " RTSP/1.0 RTP/UDP 8006"
+			request = "SETUP " + str(self.fileName) + "\n" + str(self.rtspSeq) + "\n" + " RTSP/1.0 RTP/UDP " + str(self.rtpPort)
 
-			#transport = "RTP/UDP;client_port=25000"
+
 
 			self.rtspSocket.send(request)
 			# Keep track of the sent request.
@@ -331,7 +330,7 @@ class Client:
 
 		try:
 			#self.rtpSocket.connect(self.serverAddr,self.rtpPort)
-			self.rtpSocket.bind(("127.0.0.1",8006))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
+			self.rtpSocket.bind(("127.0.0.1",self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
 			#self.rtpSocket.listen(5)
 			print "Bind RtpPort Success"
 
