@@ -57,7 +57,7 @@ class RtpPacket:
 		self.header[9] = ssrc >> 16
 		self.header[10] = ssrc >> 8
 		self.header[11] = ssrc
-		print '-'*60 + "\nheader encoding done...\n" + '-'*60
+
 
 		# Get the payload from the argument
 		# self.payload = ...
@@ -70,7 +70,7 @@ class RtpPacket:
 		self.header = bytearray(byteStream[:HEADER_SIZE])   #temporary solved
 
 		self.payload = byteStream[HEADER_SIZE:]
-		print '-'*60 + "\nheader decode done\n" + '-'*60
+
 
 
 	def version(self):

@@ -20,6 +20,7 @@ class Client:
 	PAUSE = 2
 	TEARDOWN = 3
 
+	counter = 0
 	# Initiation..
 	def __init__(self, master, serveraddr, serverport, rtpport, filename):
 		self.master = master
@@ -75,8 +76,10 @@ class Client:
 	def exitClient(self):
 		"""Teardown button handler."""
 		self.sendRtspRequest(self.TEARDOWN)
+		#self.handler()
 		self.master.destroy() # Close the gui window
 		os.remove(CACHE_FILE_NAME + str(self.sessionId) + CACHE_FILE_EXT) # Delete the cache image from video
+		print '-'*60 + "\nRTP Packet Loss Rate :" + str(self.counter) +"\n" + '-'*60
 
 	def pauseMovie(self):
 		"""Pause button handler."""
@@ -96,16 +99,17 @@ class Client:
 	def listenRtp(self):
 		while True:
 			try:
-				print "Listening Rtp Packet..."
 				data,addr = self.rtpSocket.recvfrom(20480)
-				print "Rtp data received..."
 
 				if data:
 					rtpPacket = RtpPacket()
 					rtpPacket.decode(data)
-
+					print "||Received Rtp Packet #" + str(rtpPacket.seqNum()) + "|| "
 
 					try:
+						if self.frameNbr + 1 != rtpPacket.seqNum():
+							self.counter += 1
+							print '!'*60 + "\nPACKET LOSS\n" + '!'*60
 						currFrameNbr = rtpPacket.seqNum()
 						#version = rtpPacket.version()
 					except:
@@ -113,8 +117,6 @@ class Client:
 						print '-'*60
 						traceback.print_exc(file=sys.stdout)
 						print '-'*60
-
-					print "Current Seq Num: " + str(currFrameNbr)
 
 					if currFrameNbr > self.frameNbr: # Discard the late packet
 						self.frameNbr = currFrameNbr
@@ -344,4 +346,9 @@ class Client:
 		if tkMessageBox.askokcancel("Quit?", "Are you sure you want to quit?"):
 			self.exitClient()
 		else: # When the user presses cancel, resume playing.
-			self.playMovie()
+			#self.playMovie()
+			print "Playing Movie"
+			threading.Thread(target=self.listenRtp).start()
+			#self.playEvent = threading.Event()
+			#self.playEvent.clear()
+			self.sendRtspRequest(self.PLAY)

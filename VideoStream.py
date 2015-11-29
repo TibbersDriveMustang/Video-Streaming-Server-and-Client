@@ -39,7 +39,7 @@ class VideoStream:
 			#	raise ValueError('invalid jpeg')
 
 			self.frameNum += 1
-			print '-'*60 + "\nNext Frame (#" + str(self.frameNum) + ") length:" + str(framelength) + "\n" + '-'*60
+			print '-'*10 + "\nNext Frame (#" + str(self.frameNum) + ") length:" + str(framelength) + "\n" + '-'*10
 
 			return frame
 

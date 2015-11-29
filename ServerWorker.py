@@ -124,13 +124,13 @@ class ServerWorker:
 	def sendRtp(self):
 		"""Send RTP packets over UDP."""
 
-		# counter = 0
-		# threshold = 10
+		counter = 0
+		threshold = 10
 		while True:
 			jit = math.floor(random.uniform(-13,5.99))
 			jit = jit / 1000
 
-			self.clientInfo['event'].wait(0.05)
+			self.clientInfo['event'].wait(0.05 + jit)
 			jit = jit + 0.020
 
 			# Stop sending if request is PAUSE or TEARDOWN
@@ -155,6 +155,7 @@ class ServerWorker:
 					prb = math.floor(random.uniform(1,100))
 					if prb > 5.0:
 						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),(self.clientInfo['rtspSocket'][1][0],port))
+						counter += 1
 						time.sleep(jit)
 				except:
 					print "Connection Error"
