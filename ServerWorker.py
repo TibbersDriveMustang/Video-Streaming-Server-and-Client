@@ -35,9 +35,10 @@ class ServerWorker:
 		"""Receive RTSP request from the client."""
 		connSocket = self.clientInfo['rtspSocket'][0]
 		while True:
-			data = connSocket.recv(256)
+			data = connSocket.recv(256)  ###
 			if data:
 				print '-'*60 + "\nData received:\n" + '-'*60
+				print "from ....(should get clinet address)"
 				self.processRtspRequest(data)
 
 	def processRtspRequest(self, data):
@@ -147,12 +148,12 @@ class ServerWorker:
 					#print '-'*60 + "\nmakeRtp:\n" + self.makeRtp(data,frameNumber)
 					#print '-'*60
 
-					address = self.clientInfo['rtspSocket'][1][0]
+					address = self.clientInfo['rtspSocket'][1]
 					port = int(self.clientInfo['rtpPort'])
 
 					prb = math.floor(random.uniform(1,100))
 					if prb > 5.0:
-						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),("127.0.0.1",port))
+						self.clientInfo['rtpSocket'].sendto(self.makeRtp(data, frameNumber),(str(address),port))
 						time.sleep(jit)
 				except:
 					print "Connection Error"

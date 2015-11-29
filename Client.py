@@ -330,7 +330,7 @@ class Client:
 
 		try:
 			#self.rtpSocket.connect(self.serverAddr,self.rtpPort)
-			self.rtpSocket.bind(("127.0.0.1",self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
+			self.rtpSocket.bind((self.serverAddr,self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
 			#self.rtpSocket.listen(5)
 			print "Bind RtpPort Success"
 
