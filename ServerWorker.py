@@ -38,7 +38,6 @@ class ServerWorker:
 			data = connSocket.recv(256)  ###
 			if data:
 				print '-'*60 + "\nData received:\n" + '-'*60
-				print "from ....(should get clinet address)"
 				self.processRtspRequest(data)
 
 	def processRtspRequest(self, data):
@@ -47,10 +46,8 @@ class ServerWorker:
 		request = data.split('\n')
 		line1 = request[0].split(' ')
 		requestType = line1[0]
-
 		# Get the media file name
 		filename = line1[1]
-
 		# Get the RTSP sequence number
 		seq = request[1].split(' ')
 

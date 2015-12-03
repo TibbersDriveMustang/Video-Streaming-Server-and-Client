@@ -79,7 +79,9 @@ class Client:
 		#self.handler()
 		self.master.destroy() # Close the gui window
 		os.remove(CACHE_FILE_NAME + str(self.sessionId) + CACHE_FILE_EXT) # Delete the cache image from video
-		print '-'*60 + "\nRTP Packet Loss Rate :" + str(self.counter) +"\n" + '-'*60
+		rate = float(self.counter/self.frameNbr)
+		print '-'*60 + "\nRTP Packet Loss Rate :" + str(rate) +"\n" + '-'*60
+		sys.exit(0)
 
 	def pauseMovie(self):
 		"""Pause button handler."""
@@ -191,8 +193,6 @@ class Client:
 			# Write the RTSP request to be sent.
 			# request = ...
 			request = "SETUP " + str(self.fileName) + "\n" + str(self.rtspSeq) + "\n" + " RTSP/1.0 RTP/UDP " + str(self.rtpPort)
-
-
 
 			self.rtspSocket.send(request)
 			# Keep track of the sent request.
