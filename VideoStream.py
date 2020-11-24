@@ -5,9 +5,9 @@ class VideoStream:
 		self.filename = filename
 		try:
 			self.file = open(filename, 'rb')
-			print '-'*60 +  "\nVideo file : |" + filename +  "| read\n" + '-'*60
+			print ('-'*60 +  "\nVideo file : |" + filename +  "| read\n" + '-'*60)
 		except:
-			print "read " + filename + " error"
+			print ("read " + filename + " error")
 			raise IOError
 		self.frameNum = 0
 
@@ -35,7 +35,7 @@ class VideoStream:
 			#	raise ValueError('invalid jpeg')
 
 			self.frameNum += 1
-			print '-'*10 + "\nNext Frame (#" + str(self.frameNum) + ") length:" + str(framelength) + "\n" + '-'*10
+			print ('-'*10 + "\nNext Frame (#" + str(self.frameNum) + ") length:" + str(framelength) + "\n" + '-'*10)
 
 			return frame
 
