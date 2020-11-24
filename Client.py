@@ -1,6 +1,6 @@
 __author__ = 'Tibbers'
 from tkinter import *
-import tkinter.messagebox
+import tkinter.messagebox  as tkMessageBox
 from PIL import Image, ImageTk
 import socket, threading, sys, traceback, os
 
