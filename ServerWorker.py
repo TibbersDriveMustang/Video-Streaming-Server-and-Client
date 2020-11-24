@@ -40,10 +40,8 @@ class ServerWorker:
 				print ('-'*60 + "\nData received:\n" + '-'*60)
 				self.processRtspRequest(data)
 
-	def processRtspRequest(self, dt):
-		#print(type(dt), "%r" % dt)
-		data = dt.decode('utf-8')
-		request = data.split('\n')
+	def processRtspRequest(self, data):
+		request = data.decode('utf-8').split('\n')
 		line1 = request[0].split(' ')
 		requestType = line1[0]
 		# Get the media file name

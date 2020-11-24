@@ -267,12 +267,11 @@ class Client:
 				self.rtspSocket.close()
 				break
 
-	def parseRtspReply(self, dt):
+	def parseRtspReply(self, data):
 		print ("Parsing Received Rtsp data...")
 
 		"""Parse the RTSP reply from the server."""
-		data = dt.decode('utf-8')
-		lines = data.split('\n')
+		lines = data.decode('utf-8').split('\n')
 		seqNum = int(lines[1].split(' ')[1])
 
 		# Process only if the server reply's sequence number is the same as the request's
