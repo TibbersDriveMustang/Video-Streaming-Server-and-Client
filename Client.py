@@ -1,6 +1,6 @@
 __author__ = 'Tibbers'
-from Tkinter import *
-import tkMessageBox
+from tkinter import *
+import tkinter.messagebox  as tkMessageBox
 from PIL import Image, ImageTk
 import socket, threading, sys, traceback, os
 
@@ -80,7 +80,7 @@ class Client:
 		self.master.destroy() # Close the gui window
 		os.remove(CACHE_FILE_NAME + str(self.sessionId) + CACHE_FILE_EXT) # Delete the cache image from video
 		rate = float(self.counter/self.frameNbr)
-		print '-'*60 + "\nRTP Packet Loss Rate :" + str(rate) +"\n" + '-'*60
+		print ('-'*60 + "\nRTP Packet Loss Rate :" + str(rate) +"\n" + '-'*60)
 		sys.exit(0)
 
 	def pauseMovie(self):
@@ -92,7 +92,7 @@ class Client:
 		"""Play button handler."""
 		if self.state == self.READY:
 			# Create a new thread to listen for RTP packets
-			print "Playing Movie"
+			print ("Playing Movie")
 			threading.Thread(target=self.listenRtp).start()
 			self.playEvent = threading.Event()
 			self.playEvent.clear()
@@ -106,19 +106,19 @@ class Client:
 				if data:
 					rtpPacket = RtpPacket()
 					rtpPacket.decode(data)
-					print "||Received Rtp Packet #" + str(rtpPacket.seqNum()) + "|| "
+					print ("||Received Rtp Packet #" + str(rtpPacket.seqNum()) + "|| ")
 
 					try:
 						if self.frameNbr + 1 != rtpPacket.seqNum():
 							self.counter += 1
-							print '!'*60 + "\nPACKET LOSS\n" + '!'*60
+							print ('!'*60 + "\nPACKET LOSS\n" + '!'*60)
 						currFrameNbr = rtpPacket.seqNum()
 						#version = rtpPacket.version()
 					except:
-						print "seqNum() error"
-						print '-'*60
+						print ("seqNum() error")
+						print ('-'*60)
 						traceback.print_exc(file=sys.stdout)
-						print '-'*60
+						print ('-'*60)
 
 					if currFrameNbr > self.frameNbr: # Discard the late packet
 						self.frameNbr = currFrameNbr
@@ -126,7 +126,7 @@ class Client:
 
 			except:
 				# Stop listening upon requesting PAUSE or TEARDOWN
-				print "Didn`t receive data!"
+				print ("Didn`t receive data!")
 				if self.playEvent.isSet():
 					break
 
@@ -145,12 +145,12 @@ class Client:
 		try:
 			file = open(cachename, "wb")
 		except:
-			print "file open error"
+			print ("file open error")
 
 		try:
 			file.write(data)
 		except:
-			print "file write error"
+			print ("file write error")
 
 		file.close()
 
@@ -161,10 +161,10 @@ class Client:
 		try:
 			photo = ImageTk.PhotoImage(Image.open(imageFile)) #stuck here !!!!!!
 		except:
-			print "photo error"
-			print '-'*60
+			print ("photo error")
+			print ('-'*60)
 			traceback.print_exc(file=sys.stdout)
-			print '-'*60
+			print ('-'*60)
 
 		self.label.configure(image = photo, height=288)
 		self.label.image = photo
@@ -194,7 +194,7 @@ class Client:
 			# request = ...
 			request = "SETUP " + str(self.fileName) + "\n" + str(self.rtspSeq) + "\n" + " RTSP/1.0 RTP/UDP " + str(self.rtpPort)
 
-			self.rtspSocket.send(request)
+			self.rtspSocket.send(request.encode('utf-8'))
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.SETUP
@@ -208,8 +208,8 @@ class Client:
 			# request = ...
 			request = "PLAY " + "\n" + str(self.rtspSeq)
 
-			self.rtspSocket.send(request)
-			print '-'*60 + "\nPLAY request sent to Server...\n" + '-'*60
+			self.rtspSocket.send(request.encode('utf-8'))
+			print ('-'*60 + "\nPLAY request sent to Server...\n" + '-'*60)
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.PLAY
@@ -222,8 +222,8 @@ class Client:
 			# Write the RTSP request to be sent.
 			# request = ...
 			request = "PAUSE " + "\n" + str(self.rtspSeq)
-			self.rtspSocket.send(request)
-			print '-'*60 + "\nPAUSE request sent to Server...\n" + '-'*60
+			self.rtspSocket.send(request.encode('utf-8'))
+			print ('-'*60 + "\nPAUSE request sent to Server...\n" + '-'*60)
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.PAUSE
@@ -239,8 +239,8 @@ class Client:
 			# Write the RTSP request to be sent.
 			# request = ...
 			request = "TEARDOWN " + "\n" + str(self.rtspSeq)
-			self.rtspSocket.send(request)
-			print '-'*60 + "\nTEARDOWN request sent to Server...\n" + '-'*60
+			self.rtspSocket.send(request.encode('utf-8'))
+			print ('-'*60 + "\nTEARDOWN request sent to Server...\n" + '-'*60)
 			# Keep track of the sent request.
 			# self.requestSent = ...
 			self.requestSent = self.TEARDOWN
@@ -268,10 +268,10 @@ class Client:
 				break
 
 	def parseRtspReply(self, data):
-		print "Parsing Received Rtsp data..."
+		print ("Parsing Received Rtsp data...")
 
 		"""Parse the RTSP reply from the server."""
-		lines = data.split('\n')
+		lines = data.decode('utf-8').split('\n')
 		seqNum = int(lines[1].split(' ')[1])
 
 		# Process only if the server reply's sequence number is the same as the request's
@@ -289,17 +289,17 @@ class Client:
 						# TO COMPLETE
 						#-------------
 						# Update RTSP state.
-						print "Updating RTSP state..."
+						print ("Updating RTSP state...")
 						# self.state = ...
 						self.state = self.READY
 						# Open RTP port.
 						#self.openRtpPort()
-						print "Setting Up RtpPort for Video Stream"
+						print ("Setting Up RtpPort for Video Stream")
 						self.openRtpPort()
 
 					elif self.requestSent == self.PLAY:
 						 self.state = self.PLAYING
-						 print '-'*60 + "\nClient is PLAYING...\n" + '-'*60
+						 print ('-'*60 + "\nClient is PLAYING...\n" + '-'*60)
 					elif self.requestSent == self.PAUSE:
 						 self.state = self.READY
 
@@ -334,7 +334,7 @@ class Client:
 			#self.rtpSocket.connect(self.serverAddr,self.rtpPort)
 			self.rtpSocket.bind((self.serverAddr,self.rtpPort))   # WATCH OUT THE ADDRESS FORMAT!!!!!  rtpPort# should be bigger than 1024
 			#self.rtpSocket.listen(5)
-			print "Bind RtpPort Success"
+			print ("Bind RtpPort Success")
 
 		except:
 			tkMessageBox.showwarning('Connection Failed', 'Connection to rtpServer failed...')
@@ -347,7 +347,7 @@ class Client:
 			self.exitClient()
 		else: # When the user presses cancel, resume playing.
 			#self.playMovie()
-			print "Playing Movie"
+			print ("Playing Movie")
 			threading.Thread(target=self.listenRtp).start()
 			#self.playEvent = threading.Event()
 			#self.playEvent.clear()
