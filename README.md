@@ -4,10 +4,10 @@ How to:
 Example:
 
     Open a terminal:
-        python Server.py 1025
+        python3 Server.py 1025
 
     Open another terminal:
-        python ClientLauncher.py 127.0.0.1 1025 5008 video.mjpeg
+        python3 ClientLauncher.py 127.0.0.1 1025 5008 video.mjpeg
 
 
 
@@ -15,7 +15,7 @@ Example:
 
 Start the server with the command line
 	
-		python Server.py server_port
+		python3 Server.py server_port
 	
 	Where server_port is the port your server listens to for incoming RTSP connections
 	    # 1025
@@ -26,7 +26,7 @@ Open a new terminal
 
 	Start the client with the command line
 		
-		python ClientLauncher.py server_host server_port RTP_port video_file
+		python3 ClientLauncher.py server_host server_port RTP_port video_file
 
 	Where 
 		# server_host : the name of the machine where server is running (here "127.0.0.1")
