@@ -9,10 +9,10 @@ class Server:
 		try:
 			SERVER_PORT = int(sys.argv[1])
 		except:
-			print "[Usage: Server.py Server_port]\n"
+			print ("[Usage: Server.py Server_port]\n")
 		rtspSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		rtspSocket.bind(('', SERVER_PORT))
-		print "RTSP Listing incoming request..."
+		print ("RTSP Listing incoming request...")
 		rtspSocket.listen(5)
 
 		# Receive client info (address,port) through RTSP/TCP session
